@@ -981,11 +981,11 @@
     </div>
   </div>
 
-  <footer>Simulador de <strong>F = m · a</strong> &nbsp;·&nbsp; Segunda Ley de Newton &nbsp;·&nbsp; Física Clásica &nbsp;·&nbsp; v2026-05-31-5</footer>
+  <footer>Simulador de <strong>F = m · a</strong> &nbsp;·&nbsp; Segunda Ley de Newton &nbsp;·&nbsp; Física Clásica &nbsp;·&nbsp; v2026-05-31-6</footer>
 </div>
 
 <script>
-  const BUILD_VERSION = 'v2026-05-31-5';
+  const BUILD_VERSION = 'v2026-05-31-6';
 
   // Solo números y un único punto decimal — función reutilizable para inputs estáticos y dinámicos
   function applyNumericGuard(inp) {
@@ -2616,7 +2616,8 @@
       const total2 = exportEntries.filter(e=>e.law==='2da').length;
       const total3 = exportEntries.filter(e=>e.law==='3ra').length;
 
-      rect(ML, y, W, 28, C.surface, 3);
+      const summaryH = 42;
+      rect(ML, y, W, summaryH, C.surface, 3);
       setFont(8, 'normal', C.muted);
       doc.text('RESUMEN DEL REPORTE', ML + 6, y + 8);
       doc.setDrawColor(...C.dim);
@@ -2624,23 +2625,23 @@
       doc.line(ML + 6, y + 10, ML + W - 6, y + 10);
 
       setFont(9, 'normal', C.text);
-      doc.text('Total de simulaciones:', ML + 6, y + 18);
+      doc.text('Total de simulaciones:', ML + 6, y + 19);
       setFont(9, 'bold', C.accent);
-      doc.text(String(exportEntries.length), ML + 60, y + 18);
+      doc.text(String(exportEntries.length), ML + 72, y + 19);
 
       setFont(9, 'normal', C.text);
-      doc.text('Segunda Ley (F = m·a):', ML + 6, y + 24);
+      doc.text('Segunda Ley (F = m·a):', ML + 6, y + 28);
       setFont(9, 'bold', C.a);
-      doc.text(String(total2), ML + 60, y + 24);
+      doc.text(String(total2), ML + 72, y + 28);
 
       setFont(9, 'normal', C.text);
-      doc.text('Tercera Ley (Acción/Reacción):', ML + 6, y + 30);
+      doc.text('Tercera Ley (Acción/Reacción):', ML + 6, y + 37);
       doc.setTextColor(...C.F);
       doc.setFontSize(9); doc.setFont('helvetica','bold');
-      doc.text(String(total3), ML + 72, y + 30);
+      doc.text(String(total3), ML + 72, y + 37);
 
       // Fecha/hora
-      y += 38;
+      y += summaryH + 12;
       const now = new Date();
       const dateStr = now.toLocaleDateString('es-EC', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
       const timeStr = now.toLocaleTimeString('es-EC');

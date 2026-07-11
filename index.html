@@ -1422,14 +1422,14 @@
           unknown: unknown,
           vFinal: vF,
           xFinal: xF,
-          chartImg: document.getElementById('myChart') ? document.getElementById('myChart').toDataURL('image/jpeg', 0.78) : null,
+          chartImg: document.getElementById('myChart') ? document.getElementById('myChart').toDataURL('image/jpeg', 0.95) : null,
           sceneImg: null
         };
         const _scene2El = document.getElementById('scene');
         if (_scene2El && window.html2canvas) {
-          html2canvas(_scene2El, { backgroundColor: '#0b0e1a', scale: 1, logging: false, useCORS: true })
+          html2canvas(_scene2El, { backgroundColor: '#0b0e1a', scale: 2, logging: false, useCORS: true })
             .then(function(canvas) {
-              _entry2.sceneImg = canvas.toDataURL('image/jpeg', 0.72);
+              _entry2.sceneImg = canvas.toDataURL('image/jpeg', 0.92);
               addHistory(_entry2);
             })
             .catch(function() { addHistory(_entry2); })
@@ -2183,8 +2183,8 @@
               const ch3par2 = document.getElementById('chart3-par');
               const ch3col2 = document.getElementById('chart3-col');
               const chartImg3b = (ch3par2 && ch3par2.style.display !== 'none')
-                ? ch3par2.toDataURL('image/jpeg', 0.78)
-                : (ch3col2 ? ch3col2.toDataURL('image/jpeg', 0.78) : null);
+                ? ch3par2.toDataURL('image/jpeg', 0.95)
+                : (ch3col2 ? ch3col2.toDataURL('image/jpeg', 0.95) : null);
               const _entry3b = {
                 law: '3ra', timestamp: formatTimestamp(), tipo: 'Colisión',
                 emojiA: document.getElementById('sprite3-A').textContent,
@@ -2196,8 +2196,8 @@
               const _scene3Elb = document.getElementById('scene3');
               const _reEnable3b = () => { setTimeout(function(){ sim3Locked = false; _b3.style.pointerEvents = ''; _b3.disabled = false; _b3.style.opacity = '1'; _b3.style.cursor = 'pointer'; setResetLocked('btn3-reset', false); }, 1000); };
               if (_scene3Elb && window.html2canvas) {
-                html2canvas(_scene3Elb, { backgroundColor: '#0b0e1a', scale: 1, logging: false, useCORS: true })
-                  .then(canvas => { _entry3b.sceneImg = canvas.toDataURL('image/jpeg', 0.72); addHistory(_entry3b); })
+                html2canvas(_scene3Elb, { backgroundColor: '#0b0e1a', scale: 2, logging: false, useCORS: true })
+                  .then(canvas => { _entry3b.sceneImg = canvas.toDataURL('image/jpeg', 0.92); addHistory(_entry3b); })
                   .catch(() => addHistory(_entry3b))
                   .finally(_reEnable3b);
               } else {
@@ -2296,8 +2296,8 @@
               const ch3par  = document.getElementById('chart3-par');
               const ch3col  = document.getElementById('chart3-col');
               const chartImg3 = (ch3par && ch3par.style.display !== 'none')
-                ? ch3par.toDataURL('image/jpeg', 0.78)
-                : (ch3col ? ch3col.toDataURL('image/jpeg', 0.78) : null);
+                ? ch3par.toDataURL('image/jpeg', 0.95)
+                : (ch3col ? ch3col.toDataURL('image/jpeg', 0.95) : null);
               const _entry3 = {
                 law: '3ra', timestamp: formatTimestamp(), tipo: modeLabel,
                 emojiA: document.getElementById('sprite3-A').textContent,
@@ -2309,8 +2309,8 @@
               const _scene3El = document.getElementById('scene3');
               const _reEnable3pf = () => { setTimeout(function(){ sim3Locked = false; _b3pf.style.pointerEvents = ''; _b3pf.disabled = false; _b3pf.style.opacity = '1'; _b3pf.style.cursor = 'pointer'; setResetLocked('btn3-reset', false); }, 1000); };
               if (_scene3El && window.html2canvas) {
-                html2canvas(_scene3El, { backgroundColor: '#0b0e1a', scale: 1, logging: false, useCORS: true })
-                  .then(canvas => { _entry3.sceneImg = canvas.toDataURL('image/jpeg', 0.72); addHistory(_entry3); })
+                html2canvas(_scene3El, { backgroundColor: '#0b0e1a', scale: 2, logging: false, useCORS: true })
+                  .then(canvas => { _entry3.sceneImg = canvas.toDataURL('image/jpeg', 0.92); addHistory(_entry3); })
                   .catch(() => addHistory(_entry3))
                   .finally(_reEnable3pf);
               } else {

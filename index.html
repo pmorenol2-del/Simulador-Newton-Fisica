@@ -12,6 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
+  /* Variables globales de color y tipografia para el modo oscuro (por defecto) */
   :root {
     --bg: #0b0e1a;
     --surface: #131729;
@@ -30,7 +31,7 @@
     --font-display: 'Syne', sans-serif;
     --font-mono: 'Space Mono', monospace;
   }
-  /*LIGHT MODE*/
+  /* Sobrescritura de variables cuando el body tiene la clase "light" (modo claro) */
   body.light {
     --bg: #f0f2f8;
     --surface: #ffffff;
@@ -61,6 +62,7 @@
   body.light .result-display { background: #e8eaf2; }
   body.light .metric-card { background: #e8eaf2; }
 
+  /* Boton flotante que alterna entre modo claro y oscuro */
   #theme-toggle {
     display: flex;
     align-items: center;
@@ -103,7 +105,9 @@
     pointer-events: none;
     z-index: 0;
   }
+  /* Contenedor principal de la pagina, centrado y con ancho maximo */
   .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 1.5rem; }
+  /* Encabezado con el titulo y la etiqueta de la pagina */
   header { text-align: center; margin-bottom: 3rem; padding-top: 1rem; }
   .badge {
     display: inline-block;
@@ -130,6 +134,7 @@
   h1 .dot { color: var(--text-dim); }
   h1 .a { color: var(--a-color); }
   .tagline { font-size: 14px; color: var(--text-muted); font-family: var(--font-mono); letter-spacing: 1px; }
+  /* Cuadricula principal: panel de controles a la izquierda, resultados/escena a la derecha */
   .main-grid {
     display: grid;
     grid-template-columns: 340px 1fr;
@@ -264,6 +269,7 @@
   .metric-val.m { color: var(--m-color); }
   .metric-val.a { color: var(--a-color); }
   .metric-unit-small { font-size: 11px; color: var(--text-dim); font-family: var(--font-mono); margin-top: 3px; }
+  /* Escena animada (cielo, suelo y sprite) donde se visualiza la simulacion fisica */
   .scene-outer {
     position: relative;
     border-radius: 10px;
@@ -338,6 +344,7 @@
   }
   .hud span { color: var(--text-muted); }
   .btn-row { display: flex; gap: 10px; }
+  /* Botones de control de la simulacion (iniciar/pausar, reiniciar) */
   .btn-sim {
     flex: 1;
     padding: 12px;
@@ -380,6 +387,7 @@
     color: var(--text-muted);
     border-color: var(--border-bright);
   }
+  /* Panel del grafico de Chart.js con su leyenda y barra de estado de la simulacion */
   .chart-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
   .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 8px; }
   .chart-legend { display: flex; gap: 16px; }
@@ -401,6 +409,7 @@
   .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-dim); flex-shrink: 0; transition: background 0.3s; }
   .status-dot.running { background: var(--accent); animation: blink 1s ease infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  /* Tarjetas explicativas de cada ley (definicion, formula, ejemplos) */
   .law-section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.5rem; }
   .law-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
   @media (max-width: 760px) { .law-grid { grid-template-columns: 1fr; } }
@@ -548,6 +557,7 @@
   .hist-icon { font-size: 26px; line-height:1; flex-shrink:0; padding-top:2px; }
   .hist-body { flex:1; min-width:0; }
   .hist-top { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:6px; }
+  /* Estilos de la seccion de historial: tarjetas con los resultados de simulaciones pasadas */
   .hist-law-tag {
     font-family: var(--font-mono);
     font-size: 9px;
@@ -609,6 +619,7 @@
   </header>
 
   <!-- TABS -->
+  <!-- PESTAÑAS PARA ELEGIR ENTRE 2DA Y 3RA LEY DE NEWTON -->
   <div class="law-tabs">
     <div class="tab-wrap">
       <button class="law-tab" id="tab-2" onclick="switchLaw(2)">2da Ley — F = m · a</button>
@@ -640,6 +651,7 @@
   </div>
 
   <!-- PANEL DE BIENVENIDA -->
+  <!-- Se muestra al cargar la pagina, antes de elegir una ley -->
   <div id="section-welcome" style="display:flex;align-items:center;justify-content:center;padding:4rem 1rem;text-align:center;">
     <div>
       <div style="font-size:3.5rem;margin-bottom:1.2rem;opacity:0.35;">⚛️</div>
@@ -649,6 +661,7 @@
   </div>
 
   <!-- SECCIÓN 2DA LEY -->
+  <!-- Panel de la 2da Ley: entradas F/m/a, escena animada y grafico -->
   <div id="section-2" style="display:none;"><div class="main-grid">
     <div style="display:flex;flex-direction:column;gap:16px;">
       <div class="panel">
@@ -752,6 +765,7 @@
   </div></div>
 
   <!-- SECCIÓN 3RA LEY -->
+  <!-- Panel de la 3ra Ley: colision/par de fuerzas entre objeto A y B -->
   <div id="section-3" style="display:none;"><div class="main-grid">
     <div style="display:flex;flex-direction:column;gap:16px;">
       <div class="panel">
@@ -988,42 +1002,51 @@
   const BUILD_VERSION = 'v2026-05-31-6';
 
   // Solo números y un único punto decimal — función reutilizable para inputs estáticos y dinámicos
+  // Evita que el usuario escriba caracteres no numericos en un input,
+  // dejando pasar solo digitos, un punto decimal y opcionalmente un signo negativo.
   function applyNumericGuard(inp) {
-    if (inp._numGuard) return;
+    if (inp._numGuard) return; // evita aplicar el guard dos veces al mismo input
     inp._numGuard = true;
 
     // Cambiar a type="text" con inputmode para tener control total del valor intermedio
+    // (un input type="number" nativo no permite interceptar cada tecla facilmente)
     var minVal = inp.getAttribute('min');
-    var allowNeg = minVal !== null && parseFloat(minVal) < 0;
+    var allowNeg = minVal !== null && parseFloat(minVal) < 0; // solo permite el signo "-" si el minimo del campo es negativo
     inp.setAttribute('type', 'text');
-    inp.setAttribute('inputmode', 'decimal');
+    inp.setAttribute('inputmode', 'decimal'); // en movil, muestra el teclado numerico con punto decimal
     inp.setAttribute('pattern', allowNeg ? '-?[0-9]*[.]?[0-9]*' : '[0-9]*[.]?[0-9]*');
 
+    // Limpia un string dejando solo digitos, un unico punto decimal y un signo negativo inicial valido
     function cleanNumericValue(value) {
+      // Quita cualquier caracter que no sea digito, punto o (si se permite) el signo menos
       var cleaned = String(value || '').replace(allowNeg ? /[^0-9.\-]/g : /[^0-9.]/g, '');
+      // Elimina cualquier "-" que no este en la primera posicion
       cleaned = allowNeg ? cleaned.replace(/(?!^)-/g, '') : cleaned.replace(/-/g, '');
       var negative = allowNeg && cleaned.charAt(0) === '-';
       if (negative) cleaned = cleaned.slice(1);
+      // Si hay mas de un punto decimal, conserva solo el primero
       var parts = cleaned.split('.');
       if (parts.length > 2) cleaned = parts[0] + '.' + parts.slice(1).join('');
       return (negative ? '-' : '') + cleaned;
     }
 
+    // Bloquea teclas no numericas antes de que se escriban (excepto teclas de navegacion/edicion)
     inp.addEventListener('keydown', function(e) {
       var allowed = [
         'Backspace','Delete','Tab','ArrowLeft','ArrowRight','ArrowUp','ArrowDown',
         'Home','End','Enter'
       ];
       if (allowed.indexOf(e.key) !== -1) return;
-      if (e.ctrlKey || e.metaKey) return;
+      if (e.ctrlKey || e.metaKey) return; // permite atajos (copiar, pegar, etc.)
       if (/^[0-9]$/.test(e.key)) return;
       // Punto: solo si no hay uno ya
       if (e.key === '.' && this.value.indexOf('.') === -1) return;
       // Negativo: solo al inicio y solo si el campo lo permite
       if (e.key === '-' && this.selectionStart === 0 && this.value.indexOf('-') === -1 && allowNeg) return;
-      e.preventDefault();
+      e.preventDefault(); // cualquier otra tecla se bloquea
     });
 
+    // Verifica el resultado ANTES de que se inserte, para inputs de metodos alternativos (autocompletado, IME, etc.)
     inp.addEventListener('beforeinput', function(e) {
       if (!e.data) return;
       var start = this.selectionStart || 0;
@@ -1032,16 +1055,19 @@
       if (cleanNumericValue(next) !== next) e.preventDefault();
     });
 
+    // Red de seguridad final: si de todos modos entro algo invalido, lo limpia despues del cambio
     inp.addEventListener('input', function() {
       var start = this.selectionStart || this.value.length;
       var before = this.value;
       var after = cleanNumericValue(before);
       if (before === after) return;
       this.value = after;
+      // Recalcula la posicion del cursor para que no salte tras eliminar caracteres invalidos
       var nextPos = Math.max(0, start - (before.length - after.length));
       this.setSelectionRange(nextPos, nextPos);
     }, true);
 
+    // Al pegar texto, lo limpia antes de insertarlo (en vez de dejar pasar el pegado tal cual)
     inp.addEventListener('paste', function(e) {
       e.preventDefault();
       var pasted = (e.clipboardData || window.clipboardData).getData('text');
@@ -1061,6 +1087,7 @@
   });
 
   // Utilidad: convierte masa a tamaño de emoji (escala logarítmica 18px–72px)
+  // Convierte un valor de masa (kg) en un tamano de fuente/emoji proporcional para el sprite en la escena
   function massToSize(m) {
     return Math.max(18, Math.min(72,
       Math.round(18 + Math.log10(Math.max(m, 0.1)) * 18)
@@ -1068,6 +1095,7 @@
   }
 
   // Formateador de números sin redondeo innecesario
+  // Formatea un numero para mostrarlo en pantalla, limitando la cantidad de decimales (maxDec)
   function fmt(n, maxDec) {
     if (isNaN(n) || n === null || n === undefined) return '--';
     maxDec = maxDec !== undefined ? maxDec : 10;
@@ -1103,16 +1131,18 @@
   }
 
   // ESTADO 2DA LEY
-  let unknown = 'a';
-  let currentEmoji = '🏈';
-  let currentMass = 10;
-  let animId = null;
-  let chart = null;
-  let running = false;
-  let simTime = 0;
-  let simStep = 0;
+  // --- Estado global de la simulacion de la 2da Ley ---
+  let unknown = 'a';       // variable que se esta calculando: 'F', 'm' o 'a'
+  let currentEmoji = '🏈'; // emoji del objeto elegido para la escena
+  let currentMass = 10;    // masa actual usada para dimensionar el sprite
+  let animId = null;       // id devuelto por requestAnimationFrame (para poder cancelarlo)
+  let chart = null;        // instancia del grafico Chart.js
+  let running = false;     // true mientras la animacion esta en curso
+  let simTime = 0;         // tiempo transcurrido de la simulacion (segundos)
+  let simStep = 0;         // contador de pasos/frames de la animacion
   let simLocked = false;   // guard: bloquea doble clic
 
+  // Bloquea o desbloquea visualmente el boton de reset (deshabilitado mientras la simulacion corre)
   function setResetLocked(btnId, locked) {
     const btn = document.getElementById(btnId);
     if (!btn) return;
@@ -1123,6 +1153,7 @@
   }
 
   // CHART 2DA LEY
+  // Inicializa el grafico (Chart.js) de velocidad/posicion para la 2da Ley de Newton
   function initChart() {
     if (chart) chart.destroy();
     chart = new Chart(document.getElementById('myChart'), {
@@ -1161,6 +1192,7 @@
     });
   }
 
+  // Obtiene el valor numerico de un input por su id; devuelve NaN si esta vacio o no es valido
   function getVal(id) {
     const el = document.getElementById('inp-' + id);
     if (!el) return null;
@@ -1168,20 +1200,26 @@
     return v === '' ? null : (parseFloat(v) || 0);
   }
 
+  // Calcula la incognita seleccionada (F, m o a) a partir de los otros dos valores usando F = m.a
   function compute() {
+    // Lee los 3 inputs; getVal devuelve null si el campo esta vacio
     let F = getVal('F'), m = getVal('m'), a = getVal('a');
-    // Convert nulls to 0 for display, but track which are truly empty
+    // Convierte los null a 0 solo para poder mostrarlos, pero conservamos F/m/a originales (con null) para saber que esta vacio
     const Fv = F ?? 0, mv = m ?? 0, av = a ?? 0;
 
-    if (unknown === 'a' && mv > 0 && Fv >= 0) a = Fv / mv;
-    else if (unknown === 'F' && mv > 0 && av > 0) F = mv * av;
-    else if (unknown === 'm' && av > 0 && Fv > 0) m = Fv / av;
+    // Segun cual variable sea la incognita, la calcula con la formula F = m x a despejada:
+    if (unknown === 'a' && mv > 0 && Fv >= 0) a = Fv / mv;        // a = F / m
+    else if (unknown === 'F' && mv > 0 && av > 0) F = mv * av;    // F = m x a
+    else if (unknown === 'm' && av > 0 && Fv > 0) m = Fv / av;    // m = F / a
 
+    // Valores "para mostrar" (0 en vez de null)
     const Fd = F ?? 0, md = m ?? 0, ad = a ?? 0;
+    // Actualiza las 3 tarjetas pequenas de metricas (F, m, a); muestra '--' si no hay valor valido
     document.getElementById('met-F').textContent = (F === null || isNaN(F)) ? '--' : fmt(Fd);
     document.getElementById('met-m').textContent = (m === null || isNaN(m)) ? '--' : fmt(md);
     document.getElementById('met-a').textContent = (a === null || isNaN(a)) ? '--' : fmt(ad);
 
+    // Actualiza el resultado grande (solo el de la variable que es la incognita)
     const bigA = document.getElementById('res-a-big');
     const bigM = document.getElementById('res-m-big');
     const bigF = document.getElementById('res-F-big');
@@ -1190,6 +1228,7 @@
     if (unknown === 'F' && bigF) bigF.textContent = (F === null || isNaN(F)) ? '—' : fmt(F);
 
     /* Tamaño del sprite segun masa */
+    // A mayor masa, el emoji/sprite se dibuja mas grande en la escena (ver massToSize)
     const spriteEl = document.getElementById('sprite');
     if (spriteEl && md > 0 && !isNaN(md)) {
       const sz = massToSize(md);
@@ -1197,37 +1236,48 @@
       currentMass = md;
     }
 
+    // Habilita/deshabilita el boton de simular segun si los datos son suficientes
     validateBtn2(Fd, md, ad);
+    // Devuelve los 3 valores por si otra funcion (ej. startSim) los necesita directamente
     return { F: Fd, m: md, a: ad };
   }
 
+  // Valida que existan los 3 valores necesarios (F, m, a) antes de habilitar el boton de simular
   function validateBtn2(F, m, a) {
     const t   = parseFloat(document.getElementById('inp-t')?.value) || 0;
     const btn = document.getElementById('btn-play');
     if (!btn) return;
     // Necesitamos: los 2 inputs conocidos > 0, t > 0, t <= 60
     let inputsOk = false;
+    // Solo se exige que los valores "conocidos" (los que no son la incognita) sean mayores a 0
     if (unknown === 'a') inputsOk = F > 0 && m > 0;
     else if (unknown === 'F') inputsOk = m > 0 && a > 0;
     else if (unknown === 'm') inputsOk = F > 0 && a > 0;
+    // Ademas la duracion t debe estar dentro del rango permitido (1 a 60 segundos)
     const ok = inputsOk && t > 0 && t <= 60;
+    // Habilita o deshabilita visualmente el boton "Simular"
     btn.disabled      = !ok;
     btn.style.opacity = ok ? '1' : '0.4';
     btn.style.cursor  = ok ? 'pointer' : 'not-allowed';
   }
 
   // SELECTOR INCÓGNITA
+  // Marca cual variable (F, m o a) es la incognita a calcular y actualiza la interfaz en consecuencia
   function setUnknown(u) {
     unknown = u;
+    // Resalta visualmente el boton (F/m/a) correspondiente a la incognita elegida
     ['F','m','a'].forEach(k => {
       const btn = document.getElementById('unk-' + k);
       if (btn) btn.className = 'unk-btn' + (k === u ? ' active-' + k : '');
     });
+    // Reconstruye cada bloque de input: la variable incognita se muestra como resultado (solo lectura),
+    // y las otras dos se muestran como campos de entrada editables
     ['F','m','a'].forEach(k => {
       const block = document.getElementById('block-' + k);
       if (!block) return;
       const input = document.getElementById('inp-' + k);
       if (k === u) {
+        // Esta variable es la incognita: se reemplaza el input por un display de resultado (no editable)
         block.innerHTML =
           '<div class="input-header">' +
             '<span class="var-label ' + k + '">' + (k==='F'?'F — Fuerza':k==='m'?'m — Masa':'a — Aceleración') + '</span>' +
@@ -1238,6 +1288,7 @@
             '<span class="res-unit">' + (k==='F'?'N':k==='m'?'kg':'m/s²') + '</span>' +
           '</div>';
       } else {
+        // Esta variable es un dato conocido: se reconstruye un input editable, conservando el valor previo si lo habia
         const prevVal = input ? input.value : '';
         const ph = k==='F' ? 'ej. 100' : k==='m' ? 'ej. 10' : 'ej. 9.8';
         block.innerHTML =
@@ -1256,11 +1307,12 @@
       var inp = document.getElementById('inp-' + k);
       if (inp) applyNumericGuard(inp);
     });
-    compute();
+    compute(); // recalcula con la nueva configuracion de incognita
   }
 
   // SELECTOR OBJETO 2DA LEY
   const flipEmojis = ['🚗','🏎️','🚂','🛶','🚲','🛵','🚁','🚛'];
+  // Maneja la seleccion de un objeto (emoji) para la simulacion de la 2da Ley
   function selectObj(el, emoji, name) {
     document.querySelectorAll('#section-2 .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
@@ -1273,6 +1325,7 @@
   }
 
   // CHECK DURACIÓN
+  // Valida la duracion ingresada por el usuario y muestra advertencia si supera el limite de 60s
   function checkDuracion() {
     const t = parseFloat(document.getElementById('inp-t').value) || 0;
     const warn = document.getElementById('dur-warning');
@@ -1286,8 +1339,10 @@
   }
 
   // SIMULACIÓN 2DA LEY
+  // Alterna entre iniciar y pausar la simulacion de la 2da Ley (play/pause)
   function toggleSim() { if (running) { pauseSim(); return; } startSim(); }
 
+  // Inicia la animacion de la simulacion de la 2da Ley: mueve el sprite segun F = m.a
   function startSim() {
     if (simLocked) return;
     simLocked = true;
@@ -1301,9 +1356,11 @@
       setResetLocked('btn-reset', false);
       return;
     }
+    // Duracion maxima (segundos) que va a durar la animacion, tomada del input "t"
     const maxTime = Math.max(1, parseFloat(document.getElementById('inp-t').value) || 10);
 
-    // Si supera 60 s: mostrar resultados pero NO animar
+    // Si supera 60 s: mostrar resultados calculados matematicamente, pero NO reproducir la animacion
+    // (evita animaciones excesivamente largas; se calcula v y x finales directamente con las formulas)
     if (maxTime > 60) {
       const vF = fmt(a * maxTime);
       const xF = fmt(0.5 * a * maxTime * maxTime);
@@ -1325,8 +1382,10 @@
       return;
     }
 
+    // Si simTime > 0 es porque se esta reanudando una pausa (no reiniciar desde cero)
     const isResume = simTime > 0;
     if (!isResume) {
+      // Arranque desde cero: reinicia el grafico, borra el rastro anterior y pone el sprite al inicio
       initChart();
       clearTrails();
       simTime = 0;
@@ -1339,40 +1398,51 @@
     _btnRunning.textContent = '⏸ Pausar'; _btnRunning.style.pointerEvents = ''; _btnRunning.disabled = false; _btnRunning.style.opacity = '1'; _btnRunning.style.cursor = 'pointer';
     document.getElementById('status-dot').className = 'status-dot running';
 
+    // Ancho disponible (en px) de la escena, restando margenes, para escalar la posicion x (metros) a pixeles
     const sceneEl = document.getElementById('scene');
     const sceneW = sceneEl.clientWidth - 80;
+    // Copias mutables de los arreglos de datos del grafico (tiempo, velocidad, posicion, fuerza)
     const tArr = chart.data.labels.map(Number);
     const vArr = chart.data.datasets[0].data.slice();
     const pArr = chart.data.datasets[1].data.slice();
     const FArr = chart.data.datasets[2].data.slice();
-    let lastTS = null;
+    let lastTS = null; // marca de tiempo (timestamp) del frame anterior, usada para calcular delta de tiempo real
 
+    // Callback de requestAnimationFrame: calcula la posicion/velocidad en cada frame de la animacion
     function frame(ts) {
-      if (!running) return;
+      if (!running) return; // si se pauso, no seguir pidiendo mas frames
       // Al primer frame (incluyendo reanudación), lastTS=ts para evitar salto
       if (lastTS === null) { lastTS = ts; animId = requestAnimationFrame(frame); return; }
+      // Delta de tiempo real transcurrido desde el frame anterior (limitado a 50ms para evitar saltos si la pestana estuvo inactiva)
       const realDt = Math.min((ts - lastTS) / 1000, 0.05);
       lastTS = ts;
+      // La velocidad de reproduccion se ajusta segun la aceleracion: con mas "a" la animacion corre mas rapido,
+      // pero siempre acotada entre 0.2x y 6x para que no sea ni demasiado lenta ni demasiado brusca
       const simSpeed = Math.max(0.2, Math.min(a / 10, 6));
-      const dt = realDt * simSpeed;
+      const dt = realDt * simSpeed; // paso de tiempo "simulado" (distinto del tiempo real del navegador)
       simTime += dt;
+      // Cinematica con aceleracion constante: v = a*t   y   x = 1/2 * a * t^2
       const v = a * simTime;
       const x = 0.5 * a * simTime * simTime;
-      const xMax = 0.5 * a * maxTime * maxTime;
-      const scale = sceneW / Math.max(xMax, 1);
+      const xMax = 0.5 * a * maxTime * maxTime; // posicion final teorica, usada para escalar la escena
+      const scale = sceneW / Math.max(xMax, 1);  // factor metros -> pixeles
       const px = Math.min(x * scale, sceneW);
-      document.getElementById('sprite').style.left = (24 + px) + 'px';
+      document.getElementById('sprite').style.left = (24 + px) + 'px'; // mueve el sprite en la escena
 
+      // Actualiza el largo de la flecha de fuerza (proporcional a F, con un maximo de 80px)
       const arrowLen = Math.min(30 + (F / 10), 80);
       document.getElementById('arrow').style.left = (24 + px + 20) + 'px';
       document.getElementById('arrow-line').style.width = arrowLen + 'px';
 
+      // Actualiza el HUD (esquina de la escena) con t, v y x actuales
       document.getElementById('hud').innerHTML =
         '<div><span>t</span> ' + fmt(simTime) + ' s</div>' +
         '<div><span>v</span> ' + fmt(v) + ' m/s</div>' +
         '<div><span>x</span> ' + fmt(x) + ' m</div>';
 
       simStep++;
+      // Cada 4 frames se agrega un punto nuevo al grafico y un punto de rastro en la escena
+      // (no en cada frame, para no sobrecargar el grafico con demasiados puntos)
       if (simStep % 4 === 0) {
         tArr.push(+simTime.toFixed(4));
         vArr.push(+v.toFixed(6));
@@ -1382,11 +1452,12 @@
         chart.data.datasets[0].data = vArr.slice();
         chart.data.datasets[1].data = pArr.slice();
         chart.data.datasets[2].data = FArr.slice();
-        chart.update('none');
+        chart.update('none'); // 'none' = sin animacion de Chart.js, para que se vea fluido junto al sprite
+        // Crea un puntito de "estela" (trail) en la posicion actual del sprite
         const dot = document.createElement('div');
         dot.className = 'trail-dot';
         dot.style.left = (24 + px) + 'px';
-        const r = Math.min(simStep / 30, 1);
+        const r = Math.min(simStep / 30, 1); // los puntos se hacen mas grandes/opacos con el tiempo
         const sz = 4 + r * 3;
         dot.style.width = dot.style.height = sz + 'px';
         dot.style.background = 'rgba(74,240,200,' + (0.1 + r * 0.3) + ')';
@@ -1396,6 +1467,7 @@
       document.getElementById('status-text').textContent =
         'Simulando — t=' + fmt(simTime) + 's / ' + maxTime + 's | v=' + fmt(v) + ' m/s | x=' + fmt(x) + ' m';
 
+      // Cuando se alcanza la duracion configurada, termina la simulacion
       if (simTime >= maxTime) {
         running = false;
         const vF = fmt(v), xF = fmt(x), tF = fmt(simTime);
@@ -1410,6 +1482,7 @@
           'Completado — t=' + tF + ' s | v_final=' + vF + ' m/s | x_final=' + xF + ' m';
         document.getElementById('arrow').style.display = 'none';
         // Registrar en historial con captura de escena
+        // Arma el objeto con los datos de esta simulacion para guardarlo en el historial
         const _entry2 = {
           law: '2da',
           timestamp: formatTimestamp(),
@@ -1453,6 +1526,7 @@
     animId = requestAnimationFrame(frame);
   }
 
+  // Pausa la simulacion de la 2da Ley, deteniendo el bucle de animacion
   function pauseSim() {
     simLocked = false; running = false;
     setResetLocked('btn-reset', false);
@@ -1464,6 +1538,7 @@
     document.getElementById('status-text').textContent = 'Pausado — presiona Continuar para reanudar';
   }
 
+  // Reinicia la simulacion de la 2da Ley a su estado inicial (posicion, velocidad, grafico)
   function resetSim() {
     if (simLocked || running) return;
     simLocked = false; running = false; simTime = 0; simStep = 0;
@@ -1483,17 +1558,22 @@
     compute(); // re-evalúa estado del botón
   }
 
+  // Elimina del DOM todos los puntos de rastro (trail) dejados por el sprite durante la animacion
   function clearTrails() { document.querySelectorAll('.trail-dot').forEach(function(d){ d.remove(); }); }
 
-  let activeLaw = null;
+  // --- Estado global de la 3ra Ley (accion y reaccion) ---
+  let activeLaw = null; // ley actualmente visible: null, 2 o 3
 
   // SWITCH LAW
+  // Cambia entre la vista de la 2da Ley y la 3ra Ley de Newton (pestanas superiores)
   function switchLaw(n) {
+    // Si se estaba viendo otra ley con una simulacion corriendo, se pausa antes de cambiar de vista
     if (activeLaw !== null && activeLaw !== n) {
       if (running) pauseSim();
       if (running3) pauseSim3();
     }
 
+    // Oculta la pantalla de bienvenida y muestra solo la seccion de la ley elegida (2 o 3)
     document.getElementById('section-welcome').style.display = 'none';
     document.getElementById('section-2').style.display = n === 2 ? '' : 'none';
     document.getElementById('section-3').style.display = n === 3 ? '' : 'none';
@@ -1502,6 +1582,7 @@
     document.getElementById('history-section').style.display = '';
     document.getElementById('tab-2').className = 'law-tab' + (n===2?' active':'');
     document.getElementById('tab-3').className = 'law-tab' + (n===3?' active':'');
+    // Al entrar por primera vez a la 3ra Ley, inicializa sus estrellas de fondo, graficos y sprites
     if (n === 3) { initStars3(); initCalc3Charts(); updateSprites3(); }
     activeLaw = n;
   }
@@ -1510,6 +1591,7 @@
   let emojiA = '🏈', emojiB = '🚗';
   const flipEmojis3 = ['🚗','🏎️','🚂','🛶','🚲','🛵','🚛'];
 
+  // Obtiene las masas actuales de los objetos A y B configurados para la 3ra Ley
   function getMasses3() {
     let mA, mB;
     if (calc3Mode === 1) {
@@ -1522,6 +1604,7 @@
     return { mA, mB };
   }
 
+  // Actualiza la posicion y apariencia de los sprites A y B en la escena de la 3ra Ley
   function updateSprites3() {
     const { mA, mB } = getMasses3();
     const sA = massToSize(mA);
@@ -1534,6 +1617,7 @@
     if (spB) spB.style.fontSize = sB + 'px';
   }
 
+  // Posiciona instantaneamente (sin animacion) un sprite en una coordenada horizontal dada
   function setSprite3PositionNow(sprite, leftPx, rightPx) {
     if (!sprite) return;
     const prevTransition = sprite.style.transition;
@@ -1554,6 +1638,7 @@
     });
   }
 
+  // Maneja la seleccion del objeto A (emoji) para la simulacion de la 3ra Ley
   function selectObjA(el, emoji) {
     document.querySelectorAll('#obj-grid-A .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
@@ -1564,6 +1649,7 @@
     if (calc3Mode === 1) calcPar3(); else calcColision3();
   }
 
+  // Maneja la seleccion del objeto B (emoji) para la simulacion de la 3ra Ley
   function selectObjB(el, emoji) {
     document.querySelectorAll('#obj-grid-B .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
@@ -1575,13 +1661,14 @@
   }
 
   // CALC 3RA LEY — PAR
-  let chart3Par = null, chart3Col = null;
-  let calc3Mode = 1;
+  let chart3Par = null, chart3Col = null; // graficos Chart.js de los modos "par de fuerzas" y "colision"
+  let calc3Mode = 1;                      // modo de calculo activo en la 3ra Ley: 1 = par de fuerzas, 2 = colision
   let force3ByMode = { 1: 0, 2: 0 }; // valor de intensidad independiente por modo
 
   // Snapshots de escena por modo (1=par, 2=colisión)
   const _sceneSnapshot = { 1: null, 2: null };
 
+  // Guarda una foto del estado actual de la escena (posiciones, valores) antes de simular
   function _saveSceneSnapshot(mode) {
     const spA = document.getElementById('sprite3-A');
     const spB = document.getElementById('sprite3-B');
@@ -1629,6 +1716,7 @@
     };
   }
 
+  // Restaura el estado de la escena guardado previamente con _saveSceneSnapshot
   function _restoreSceneSnapshot(mode) {
     const snap = _sceneSnapshot[mode];
     if (!snap) return false;
@@ -1684,6 +1772,7 @@
     return true;
   }
 
+  // Cambia el modo de calculo de la 3ra Ley (colision, empuje, etc.)
   function switchCalc3(mode) {
     if (calc3Mode !== mode) {
       // Pausar animación si está corriendo, sin cambiar el estado visual
@@ -1742,6 +1831,7 @@
     if (mode === 1) calcPar3(); else calcColision3();
   }
 
+  // Inicializa los graficos (Chart.js) usados en los calculos de la 3ra Ley
   function initCalc3Charts() {
     if (!chart3Par) {
       const ctx = document.getElementById('chart3-par').getContext('2d');
@@ -1784,6 +1874,7 @@
     }
   }
 
+  // Cambia la pestana activa entre los distintos graficos disponibles para la 3ra Ley
   function switchChart3(tab) {
     const isPar = tab === 'par';
     document.getElementById('chart3-par').style.display = isPar ? 'block' : 'none';
@@ -1798,6 +1889,7 @@
     if (!isPar && chart3Col) chart3Col.resize();
   }
 
+  // Devuelve las opciones de configuracion comunes para los graficos de la 3ra Ley
   function chartOpts3(xLabel) {
     return {
       responsive: true, maintainAspectRatio: false, animation: false,
@@ -1809,6 +1901,7 @@
     };
   }
 
+  // Valida la duracion ingresada para la simulacion de la 3ra Ley
   function checkDur3() {
     const t = parseFloat(document.getElementById('c3-t').value) || 0;
     const warn  = document.getElementById('dur3-warning');
@@ -1821,31 +1914,39 @@
     calcPar3(); // también llama validateBtn3 al final
   }
 
+  // Calcula los resultados del modo par de fuerzas de la 3ra Ley
   function calcPar3() {
+    // Corrige visualmente los inputs cuando pierden el foco (deja escribir libremente mientras se tipea)
     applyRangeOnBlur('c3-F', 1, 99999);
     applyRangeOnBlur('c3-mA', 0.1, 10000);
     applyRangeOnBlur('c3-mB', 0.1, 10000);
+    // Lee los valores ya acotados dentro de su rango valido
     const F    = clampInput('c3-F',  1, 99999);
     const mA   = clampInput('c3-mA', 0.1, 10000);
     const mB   = clampInput('c3-mB', 0.1, 10000);
     const tMv  = document.getElementById('c3-t').value.trim();
     const tMax = tMv ? parseFloat(tMv) : null;
+    // Por la 3ra Ley, la fuerza de reaccion es igual en magnitud a la de accion (F);
+    // cada objeto acelera segun su propia masa: a = F / m
     const aA  = (F !== null && mA) ? F / mA : null;
     const aB  = (F !== null && mB) ? F / mB : null;
+    // Impulso J = F x t (variacion de la cantidad de movimiento)
     const J   = (F !== null && tMax !== null) ? F * tMax : null;
+    // Vuelca los resultados en pantalla ('—' si aun falta algun dato)
     document.getElementById('r3-Freac').textContent = F   !== null ? fmt(F)   + ' N'    : '— N';
     document.getElementById('r3-aA').textContent    = aA  !== null ? fmt(aA)  + ' m/s²' : '— m/s²';
     document.getElementById('r3-aB').textContent    = aB  !== null ? fmt(aB)  + ' m/s²' : '— m/s²';
     document.getElementById('r3-J').textContent     = J   !== null ? fmt(J)   + ' N·s'  : '— N·s';
+    // Si hay todos los datos, dibuja una curva de aceleracion acumulada (velocidad) e impulso en el tiempo
     if (chart3Par && F !== null && mA && mB && tMax) {
-      const steps = 40;
+      const steps = 40; // cantidad de puntos que se grafican entre 0 y tMax
       const labels = [], dA = [], dB = [], dJ = [];
       for (let i = 0; i <= steps; i++) {
         const t = (tMax * i / steps);
         labels.push(t.toFixed(1));
-        dA.push(+(aA * t).toFixed(3));
-        dB.push(+(aB * t).toFixed(3));
-        dJ.push(+(F * t / 10).toFixed(3));
+        dA.push(+(aA * t).toFixed(3));  // velocidad de A en el instante t (v = a*t)
+        dB.push(+(aB * t).toFixed(3));  // velocidad de B en el instante t
+        dJ.push(+(F * t / 10).toFixed(3)); // impulso escalado /10 solo para que se vea bien en el mismo eje
       }
       chart3Par.data.labels = labels;
       chart3Par.data.datasets[0].data = dA;
@@ -1861,9 +1962,10 @@
     validateBtn3();
   }
 
+  // Limita (clamp) el valor de un input numerico entre un minimo y un maximo
   function clampInput(id, min, max) {
     const el = document.getElementById(id);
-    if (!el || el.value.trim() === '') return null;
+    if (!el || el.value.trim() === '') return null; // input vacio -> no hay valor
     let v = parseFloat(el.value);
     if (isNaN(v)) return null;
     // Solo se usa el valor límite para el CÁLCULO; no se reescribe el campo aquí,
@@ -1877,6 +1979,7 @@
 
   // Corrige visualmente el campo SOLO cuando el usuario termina de escribir (blur),
   // para no interferir con la escritura de decimales.
+  // Aplica el clamp de rango cuando el input pierde el foco (blur)
   function applyRangeOnBlur(id, min, max) {
     const el = document.getElementById(id);
     if (!el || el._rangeBlurBound) return;
@@ -1890,6 +1993,7 @@
     });
   }
 
+  // Calcula los resultados del modo colision de la 3ra Ley (fuerza, aceleraciones de A y B)
   function calcColision3() {
     applyRangeOnBlur('c3-col-mA', 0.1, 10000);
     applyRangeOnBlur('c3-col-mB', 0.1, 10000);
@@ -1897,21 +2001,24 @@
     applyRangeOnBlur('c3-col-vB', -999, 999);
     const mA = clampInput('c3-col-mA', 0.1, 10000);
     const mB = clampInput('c3-col-mB', 0.1, 10000);
-    const vA = clampInput('c3-col-vA', -999, 999);
-    const vB = clampInput('c3-col-vB', -999, 999);
+    const vA = clampInput('c3-col-vA', -999, 999); // velocidad inicial de A (puede ser negativa = va hacia la izquierda)
+    const vB = clampInput('c3-col-vB', -999, 999); // velocidad inicial de B
     const eRaw = parseFloat(document.getElementById('c3-col-e').value);
-    const e  = isNaN(eRaw) ? 1 : eRaw;
+    const e  = isNaN(eRaw) ? 1 : eRaw; // coeficiente de restitucion: 1 = choque perfectamente elastico, 0 = perfectamente inelastico
     if (mA && mB && vA !== null && vB !== null) {
-      const vA2 = ((mA - e*mB)*vA + (1+e)*mB*vB) / (mA + mB);
-      const vB2 = ((mB - e*mA)*vB + (1+e)*mA*vA) / (mA + mB);
-      const pTot = mA*vA + mB*vB;
-      const Eki = 0.5*mA*vA*vA + 0.5*mB*vB*vB;
-      const Ekf = 0.5*mA*vA2*vA2 + 0.5*mB*vB2*vB2;
-      const Elost = Eki - Ekf;
+      // Formulas generales de colision 1D con coeficiente de restitucion e,
+      // derivadas de conservar la cantidad de movimiento y aplicar e = -(vB2-vA2)/(vB-vA)
+      const vA2 = ((mA - e*mB)*vA + (1+e)*mB*vB) / (mA + mB); // velocidad final de A
+      const vB2 = ((mB - e*mA)*vB + (1+e)*mA*vA) / (mA + mB); // velocidad final de B
+      const pTot = mA*vA + mB*vB;                              // cantidad de movimiento total (se conserva siempre)
+      const Eki = 0.5*mA*vA*vA + 0.5*mB*vB*vB;                 // energia cinetica antes del choque
+      const Ekf = 0.5*mA*vA2*vA2 + 0.5*mB*vB2*vB2;             // energia cinetica despues del choque
+      const Elost = Eki - Ekf;                                 // energia perdida (0 si e=1, choque elastico)
       document.getElementById('r3-vA2').textContent  = fmt(vA2) + ' m/s';
       document.getElementById('r3-vB2').textContent  = fmt(vB2) + ' m/s';
       document.getElementById('r3-ptot').textContent = fmt(pTot) + ' kg·m/s';
       document.getElementById('r3-Elost').textContent= fmt(Elost) + ' J';
+      // Grafica de barras: velocidad de A antes/despues, velocidad de B antes/despues, y momento total
       if (chart3Col) {
         chart3Col.data.datasets[0].data = [vA, vA2, null, null, null];
         chart3Col.data.datasets[1].data = [null, null, vB, vB2, null];
@@ -1919,6 +2026,7 @@
         chart3Col.update();
       }
     } else {
+      // Si falta algun dato, se muestran guiones en vez de resultados
       document.getElementById('r3-vA2').textContent  = '— m/s';
       document.getElementById('r3-vB2').textContent  = '— m/s';
       document.getElementById('r3-ptot').textContent = '— kg·m/s';
@@ -1934,9 +2042,10 @@
   }
 
   // SIMULACIÓN 3RA LEY
-  let running3 = false, animId3 = null, sim3Time = 0;
+  let running3 = false, animId3 = null, sim3Time = 0; // equivalentes a running/animId/simTime pero para la 3ra Ley
   let sim3Locked = false;  // guard: bloquea doble clic
 
+  // Actualiza el valor de la fuerza mostrada para la 3ra Ley segun los inputs actuales
   function updateForce3() {
     const v = parseFloat(document.getElementById('force3-slider').value) || 0;
     force3ByMode[calc3Mode] = v; // guarda el valor solo para el modo activo
@@ -1949,6 +2058,7 @@
     validateBtn3();
   }
 
+  // Valida que los datos necesarios esten completos para habilitar el boton de simular (3ra Ley)
   function validateBtn3() {
     const btn  = document.getElementById('btn3-play');
     if (!btn) return;
@@ -1975,6 +2085,7 @@
     btn.style.cursor  = ok ? 'pointer' : 'not-allowed';
   }
 
+  // Genera e inserta estrellas decorativas de fondo en la escena de la 3ra Ley
   function initStars3() {
     const el = document.getElementById('stars3');
     if (el && el.children.length === 0) {
@@ -1999,6 +2110,7 @@
     }
   }
 
+  // Alterna entre iniciar y pausar la simulacion de la 3ra Ley (play/pause)
   function toggleSim3() { if (running3) { pauseSim3(); return; } startSim3(); }
 
   // Estado de pausa 3ra ley (para reanudar desde la posición correcta)
@@ -2006,8 +2118,9 @@
     force: null, mA: null, mB: null, aA: null, aB: null, sizeA: null, sizeB: null,
     arrowLen: null, isColMode: false, rawVA: 0, rawVB: 0, vA2: 0, vB2: 0, eCoef: 1 };
 
+  // Inicia la animacion de la simulacion de la 3ra Ley (colision o par de fuerzas)
   function startSim3() {
-    if (sim3Locked) return;
+    if (sim3Locked) return; // evita iniciar dos veces por doble clic
     sim3Locked = true;
     setResetLocked('btn3-reset', true);
     var _btnBlock3 = document.getElementById('btn3-play');
@@ -2022,6 +2135,7 @@
     const arrowL  = document.getElementById('arrow3-left');
     const flash   = document.getElementById('col-flash');
 
+    // Si venimos de una pausa (con estado previamente guardado), se reanuda en vez de reiniciar
     const isResume3 = sim3Time > 0 && _sim3Paused.posA !== null;
 
     let mA, mB, sizeA, sizeB, aA, aB, startA, startB, pxA, pxB, arrowLen;
@@ -2033,15 +2147,16 @@
       ({ posA, posB, startA, startB, pxA, pxB, force, mA, mB, aA, aB, sizeA, sizeB,
          arrowLen, isColMode, rawVA, rawVB, vA2, vB2, eCoef } = _sim3Paused);
     } else {
-      // Nueva simulación
+      // Nueva simulación: se leen todos los parametros desde cero
       const masses = getMasses3();
       mA = masses.mA; mB = masses.mB;
+      // Tamaño del sprite proporcional a la masa de cada objeto
       sizeA = massToSize(mA);
       sizeB = massToSize(mB);
       spriteA.style.fontSize = sizeA + 'px';
       spriteB.style.fontSize = sizeB + 'px';
 
-      isColMode = calc3Mode === 2;
+      isColMode = calc3Mode === 2; // true = modo colision, false = modo par de fuerzas
       // En modo "Par de fuerzas" la fuerza real es la que el usuario escribió en el campo "Fuerza de acción",
       // NO el slider de Intensidad (ese slider solo aplica al modo Colisión).
       if (!isColMode) {
@@ -2050,6 +2165,8 @@
       rawVA = 0; rawVB = 0; vA2 = 0; vB2 = 0; eCoef = 1;
 
       if (isColMode) {
+        // Lee las velocidades iniciales y el coeficiente de restitucion, y precalcula las velocidades finales
+        // (misma formula que en calcColision3) para usarlas despues del impacto
         rawVA = parseFloat(document.getElementById('c3-col-vA').value) || 0;
         rawVB = parseFloat(document.getElementById('c3-col-vB').value) || 0;
         const eCoefRaw = parseFloat(document.getElementById('c3-col-e').value);
@@ -2058,9 +2175,11 @@
         vB2 = ((mB - eCoef * mA) * rawVB + (1 + eCoef) * mA * rawVA) / (mA + mB);
       }
 
+      // Aceleraciones de cada objeto por la fuerza (accion=reaccion) segun su masa: a = F/m
       aA = force / mA;
       aB = force / mB;
 
+      // Posiciones iniciales: A pegado al borde izquierdo, B pegado al borde derecho de la escena
       startA = 24;
       startB = sceneW - 24 - sizeB;
       posA = startA;
@@ -2070,6 +2189,8 @@
       setSprite3PositionNow(spriteB, startB, null);
       sim3Time = 0;
 
+      // Calcula la velocidad "visual" en pixeles/segundo de cada sprite, escalada
+      // segun corresponda al modo (velocidades de colision o aceleraciones del par de fuerzas)
       if (isColMode) {
         const maxV  = Math.max(Math.abs(rawVA), Math.abs(rawVB), 1);
         const base  = 180;
@@ -2082,7 +2203,7 @@
         pxB = base * (aB / aMax);
       }
 
-      arrowLen = Math.min(20 + force / 8, 80);
+      arrowLen = Math.min(20 + force / 8, 80); // largo de las flechas de fuerza, proporcional a F
 
       // Guardar parámetros para poder reanudar tras pausa
       _sim3Paused = { posA, posB, startA, startB, pxA, pxB, force,
@@ -2101,11 +2222,14 @@
     document.getElementById('arrow3-left-line').style.width  = arrowLen + 'px';
 
     let lastTS = null, collided = false;
+    // Compara dos numeros considerando pequenos errores de redondeo (tolerancia relativa)
     const nearlyEqual = (a, b) => Math.abs(a - b) <= 0.0001 * Math.max(1, Math.abs(a), Math.abs(b));
+    // Determina si el choque debe verse "centrado" (cuando A y B son simetricos en masa/velocidad)
     const centeredCollision = isColMode
       ? nearlyEqual(mA, mB) && nearlyEqual(Math.abs(rawVA), Math.abs(rawVB))
       : nearlyEqual(mA, mB);
 
+    // Callback de animacion: mueve A hacia la derecha y B hacia la izquierda hasta que colisionan
     function frame3(ts) {
       if (!running3) return;
       // Primer frame: inicializar lastTS sin avanzar (evita salto en reanudación)
@@ -2148,9 +2272,11 @@
         const hitA = contactX - realWidthA;
         const hitB = contactX;
 
+        // Ajusta la posicion final de los sprites para que queden exactamente pegados en el punto de contacto
         spriteA.style.left = hitA + 'px';
         spriteB.style.left = hitB + 'px';
 
+        // Dispara el efecto visual de destello, el sonido de impacto y las particulas de choque
         flash.style.setProperty('--flash-x', contactX + 'px');
         flash.style.setProperty('--flash-y', contactY + 'px');
         flash.classList.add('show');
@@ -2170,6 +2296,7 @@
             const pThreshold = 0.001 * Math.max(pA, pB, 1);
 
             // Función para registrar historial tras la animación
+        // Se ejecuta al finalizar la colision: detiene el movimiento y muestra resultados finales
             function finishCol() {
               flash.classList.remove('show');
               const _b3 = document.getElementById('btn3-play');
@@ -2350,6 +2477,7 @@
     }
     animId3 = requestAnimationFrame(frame3);
   }
+  // Pausa la simulacion de la 3ra Ley, deteniendo el bucle de animacion
   function pauseSim3() {
     sim3Locked = false; running3 = false;
     setResetLocked('btn3-reset', false);
@@ -2366,6 +2494,7 @@
     document.getElementById('status3-text').textContent = 'Pausado — presiona Continuar para reanudar';
   }
 
+  // Reinicia la simulacion de la 3ra Ley a su estado inicial
   function resetSim3() {
     if (sim3Locked || running3) return;
     sim3Locked = false; running3 = false; sim3Time = 0;
@@ -2395,67 +2524,77 @@
   }
 
   // AUDIO
-  let audioCtx = null;
+  let audioCtx = null; // contexto de Web Audio API reutilizado para los efectos de sonido
+  // Obtiene (o crea) el contexto de audio compartido usado para los efectos de sonido
   function getAudioCtx() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     return audioCtx;
   }
 
+  // Reproduce un sonido de impacto cuya intensidad depende de la magnitud de la fuerza
   function playImpact(force) {
     try {
       const ctx = getAudioCtx();
+      // Primer sonido: un "golpe" grave hecho con un oscilador sinusoidal que baja de frecuencia rapidamente
       const osc = ctx.createOscillator();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(120 + force * 0.3, ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.25);
+      osc.frequency.setValueAtTime(120 + force * 0.3, ctx.currentTime); // frecuencia inicial proporcional a la fuerza
+      osc.frequency.exponentialRampToValueAtTime(30, ctx.currentTime + 0.25); // cae hasta 30Hz (efecto "thump")
       const gainOsc = ctx.createGain();
       gainOsc.gain.setValueAtTime(0.7, ctx.currentTime);
-      gainOsc.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+      gainOsc.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3); // se desvanece rapido
       osc.connect(gainOsc); gainOsc.connect(ctx.destination);
       osc.start(); osc.stop(ctx.currentTime + 0.3);
+      // Segundo sonido: ruido blanco filtrado en agudos, para simular el "crack" del impacto
       const bufSize = ctx.sampleRate * 0.2;
       const buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
       const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1);
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1); // ruido blanco (valores aleatorios)
       const nSrc = ctx.createBufferSource();
       nSrc.buffer = buffer;
       const hp = ctx.createBiquadFilter();
-      hp.type = 'highpass'; hp.frequency.value = 800;
+      hp.type = 'highpass'; hp.frequency.value = 800; // deja pasar solo frecuencias altas (agudos)
       const gainN = ctx.createGain();
-      const nVol = Math.min(0.15 + (force / 500) * 0.35, 0.45);
+      const nVol = Math.min(0.15 + (force / 500) * 0.35, 0.45); // volumen del ruido, mas fuerza = mas volumen
       gainN.gain.setValueAtTime(nVol, ctx.currentTime);
       gainN.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
       nSrc.connect(hp); hp.connect(gainN); gainN.connect(ctx.destination);
       nSrc.start(); nSrc.stop(ctx.currentTime + 0.2);
-    } catch(e) {}
+    } catch(e) {} // si el navegador bloquea el audio (autoplay), se ignora silenciosamente
   }
 
   // PARTÍCULAS
   const PARTICLE_COLORS = ['#ffd166','#ff6b6b','#4af0c8','#ffffff','#ff9f43','#a29bfe'];
+  // Genera particulas visuales (efecto de choque) en una posicion x,y de la escena
   function spawnParticles(x, y, count, force) {
     const container = document.getElementById('particles3');
     if (!container) return;
     for (let i = 0; i < count; i++) {
       const p = document.createElement('div');
       p.className = 'particle';
+      // Reparte las particulas en circulo (angulo uniforme + algo de aleatoriedad) para que se vean como una explosion
       const angle = (Math.PI * 2 * i / count) + (Math.random() - 0.5) * 0.8;
-      const speed = 40 + Math.random() * (60 + force * 0.3);
-      const tx = Math.cos(angle) * speed;
-      const ty = Math.sin(angle) * speed - Math.random() * 30;
+      const speed = 40 + Math.random() * (60 + force * 0.3); // mas fuerza = particulas mas rapidas
+      const tx = Math.cos(angle) * speed; // desplazamiento final en X (usado como variable CSS --tx)
+      const ty = Math.sin(angle) * speed - Math.random() * 30; // desplazamiento final en Y, con un empuje hacia arriba
       const size = 4 + Math.random() * 8;
-      const dur = 0.5 + Math.random() * 0.6;
+      const dur = 0.5 + Math.random() * 0.6; // duracion de la animacion de cada particula
       const color = PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)];
+      // Define la posicion inicial y las variables CSS (--tx, --ty, --dur) que la animacion CSS usa para moverla
       p.style.cssText = 'left:' + (x-size/2) + 'px;top:' + (y-size/2) + 'px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';box-shadow:0 0 ' + size + 'px ' + color + ';--tx:' + tx + 'px;--ty:' + ty + 'px;--dur:' + dur + 's;';
       container.appendChild(p);
+      // Elimina la particula del DOM cuando termina su animacion, para no acumular elementos
       setTimeout(() => p.remove(), dur * 1000 + 50);
     }
   }
 
   // Cambia entre modo oscuro y modo claro
+  // Alterna entre modo claro y oscuro, y guarda la preferencia
   function toggleTheme() {
     const body = document.body;
     const icon = document.getElementById('toggle-icon');
     const label = document.getElementById('toggle-label');
+    // La clase "light" en <body> activa las variables CSS del tema claro (ver body.light en el CSS)
     if (body.classList.contains('light')) {
       body.classList.remove('light');
       icon.textContent = '☀️';
@@ -2469,9 +2608,11 @@
 
 
   // Historial
-  let historyLog = [];
-  let historyFilter = 'all';
+  // --- Estado global del historial de simulaciones ---
+  let historyLog = [];      // arreglo con todas las entradas del historial
+  let historyFilter = 'all'; // filtro activo: 'all', '2da', '3ra', 'fav', etc.
 
+  // Agrega una nueva entrada al historial de simulaciones
   function addHistory(entry) {
     historyCounter++;
     entry.id     = historyCounter;
@@ -2481,6 +2622,7 @@
     renderHistory();
   }
 
+  // Filtra las entradas del historial mostradas segun el tipo (2da ley, 3ra ley, favoritos, etc.)
   function filterHistory(type) {
     historyFilter = type;
     ['all','2da','3ra','fav'].forEach(t => {
@@ -2490,12 +2632,14 @@
     renderHistory();
   }
 
+  // Vacia por completo el historial de simulaciones guardado
   function clearHistory() {
     historyLog = [];
     historyCounter = 0;
     renderHistory();
   }
 
+  // Marca o desmarca una entrada del historial como favorita
   function toggleFavorite(entryId) {
     const entry = historyLog.find(e => e.id === entryId);
     if (!entry) return;
@@ -2503,17 +2647,20 @@
     renderHistory();
   }
 
+  // Elimina una entrada especifica del historial por su id
   function deleteHistoryEntry(entryId) {
     historyLog = historyLog.filter(e => e.id !== entryId);
     renderHistory();
   }
 
+  // Da formato legible a la marca de tiempo (fecha/hora) de una entrada del historial
   function formatTimestamp() {
     const d = new Date();
     const pad = n => String(n).padStart(2,'0');
     return pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
   }
 
+  // Genera una marca de tiempo apta para usar en nombres de archivo (sin caracteres especiales)
   function formatFileTimestamp() {
     const d = new Date();
     const pad = n => String(n).padStart(2,'0');
@@ -2523,11 +2670,13 @@
 
   let historyCounter = 0;
 
+  // Renderiza (dibuja) la lista completa del historial en el DOM segun los filtros activos
   function renderHistory() {
     const list = document.getElementById('history-list');
     const empty = document.getElementById('history-empty');
     const counter = document.getElementById('history-counter');
     const favCount = historyLog.filter(e => e.favorite).length;
+    // Aplica el filtro activo: todas, solo favoritas, o solo de una ley especifica ('2da'/'3ra')
     const filtered = historyFilter === 'all'
       ? historyLog
       : historyFilter === 'fav'
@@ -2541,6 +2690,7 @@
       counter.textContent = shownLabel + ' | ' + totalLabel + ' | ' + favLabel;
     }
 
+    // Si no hay entradas que mostrar, se oculta la lista y se muestra un mensaje vacio
     if (filtered.length === 0) {
       list.innerHTML = '';
       empty.style.display = 'block';
@@ -2551,12 +2701,15 @@
     }
     empty.style.display = 'none';
 
+    // Construye el HTML de cada tarjeta del historial (una por cada entrada filtrada) y lo inserta de una vez
     list.innerHTML = filtered.map(e => {
+      // Botones de accion comunes a toda entrada: marcar favorito, descargar PDF individual, eliminar
       const favBtn = `<button class="hist-action-btn ${e.favorite ? 'hist-fav-active' : ''}" onclick="toggleFavorite(${e.id})" title="${e.favorite ? 'Quitar de favoritos' : 'Marcar como favorito'}">${e.favorite ? 'Favorito activo' : 'Favorito'}</button>`;
       const dlBtn = `<button id="hist-download-${e.id}" class="hist-action-btn" onclick="exportSinglePDF(${e.id})" title="Descargar esta simulacion">Descargar</button>`;
       const delBtn = `<button class="hist-action-btn hist-delete" onclick="deleteHistoryEntry(${e.id})" title="Eliminar esta simulacion">Eliminar</button>`;
       const actionBtns = `<div class="hist-actions"><span class="hist-time">${e.timestamp}</span>${favBtn}${dlBtn}${delBtn}</div>`;
 
+      // Si la entrada es de la 2da Ley, arma la tarjeta con F, m, a, duracion, v_final y x_final
       if (e.law === '2da') {
         return `
           <div class="hist-entry hist-2da">
@@ -2613,6 +2766,7 @@
 
 
   // Exportar PDF
+  // Exporta a PDF todo el historial visible actualmente (todas las entradas filtradas)
   async function exportPDF() {
     if (historyLog.length === 0) {
       alert('No hay simulaciones en el historial para exportar.');
@@ -2629,17 +2783,20 @@
     });
   }
 
+  // Obtiene las entradas del historial que pertenecen a un grupo/tipo determinado
   function getHistoryGroupEntries(type) {
     if (type === 'fav') return historyLog.filter(e => e.favorite);
     return historyLog.filter(e => e.law === type);
   }
 
+  // Devuelve la etiqueta legible correspondiente a un tipo de grupo del historial
   function getHistoryGroupLabel(type) {
     if (type === '2da') return '2da Ley';
     if (type === '3ra') return '3ra Ley';
     return 'Favoritos';
   }
 
+  // Exporta a PDF un grupo especifico del historial (por ejemplo solo 2da ley o solo favoritos)
   async function exportHistoryGroup(type) {
     const entries = getHistoryGroupEntries(type);
     const label = getHistoryGroupLabel(type);
@@ -2658,10 +2815,17 @@
     });
   }
 
+  // Genera el documento PDF (jsPDF) con el reporte completo de varias simulaciones en lote
+  // Estructura general de esta funcion:
+  //  1) Crea el documento jsPDF en formato A4 y define la paleta de colores del reporte.
+  //  2) Define funciones auxiliares (setFont, rect, chip, pageCheck, fmtPdf, etc.) para dibujar.
+  //  3) Recorre cada entrada del historial (exportEntries) y dibuja una "tarjeta" con sus datos,
+  //     su captura de escena, su grafico y la resolucion paso a paso.
+  //  4) Al terminar, descarga el archivo PDF resultante.
   async function exportPDFDocument(exportEntries, batchInfo) {
-    exportEntries = exportEntries || historyLog;
+    exportEntries = exportEntries || historyLog; // por defecto exporta todo el historial
     batchInfo = batchInfo || null;
-    const fastMode = !!(batchInfo && batchInfo.fast);
+    const fastMode = !!(batchInfo && batchInfo.fast); // modo rapido: imagenes mas comprimidas, menos detalle
     if (exportEntries.length === 0) {
       alert('No hay simulaciones en el historial para exportar.');
       return;
@@ -2671,16 +2835,16 @@
     const filenamePrefix = (batchInfo && batchInfo.filenamePrefix) || 'simulador-newton-completo';
     const restoreText = (batchInfo && batchInfo.restoreText) || 'Generar Reporte PDF';
     if (btn) btn.textContent = fastMode ? '⏳ Preparando PDF rápido...' : '⏳ Generando...';
-    if (btn) btn.style.pointerEvents = 'none';
+    if (btn) btn.style.pointerEvents = 'none'; // evita hacer clic de nuevo mientras se genera
 
     try {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      const PW = 210, PH = 297;
-      const ML = 14, MR = 14, MT = 14;
-      let y = MT;
+      const PW = 210, PH = 297; // ancho y alto de la pagina A4 en milimetros
+      const ML = 14, MR = 14, MT = 14; // margenes izquierdo, derecho y superior
+      let y = MT; // cursor vertical: posicion Y donde se va dibujando el contenido
 
-      // Paleta de colores
+      // Paleta de colores (RGB) usada en todo el documento, replicando los colores de la web
       const C = {
         bg:      [11,  14,  26],
         surface: [19,  23,  41],
@@ -2695,18 +2859,21 @@
         white:   [255, 255, 255]
       };
 
-      const W = PW - ML - MR;
+      const W = PW - ML - MR; // ancho util de la pagina (descontando margenes)
 
       // Helpers
+      // Aplica tamano, estilo y color de fuente al documento PDF antes de escribir texto
       function setFont(size, style='normal', color=C.text) {
         doc.setFontSize(size);
         doc.setFont('helvetica', style);
         doc.setTextColor(...color);
       }
+      // Dibuja un rectangulo (caja) con esquinas redondeadas en el documento PDF
       function rect(x, iy, w, h, color, radius=2) {
         doc.setFillColor(...color);
         doc.roundedRect(x, iy, w, h, radius, radius, 'F');
       }
+      // Dibuja una chip (etiqueta con valor) dentro del PDF, usada para mostrar variables
       function chip(x, iy, label, val, valColor) {
         const cw = 36, ch = 7;
         rect(x, iy - 5, cw, ch, C.surf2, 1.5);
@@ -2716,6 +2883,7 @@
         doc.text(val, x + 10, iy);
         return cw + 3;
       }
+      // Verifica si queda espacio suficiente en la pagina actual; si no, agrega una nueva pagina
       function pageCheck(needed) {
         if (y + needed > PH - 14) {
           doc.addPage();
@@ -2725,24 +2893,30 @@
           y = 14;
         }
       }
+      // Formatea un valor numerico para su presentacion dentro del PDF
       function fmtPdf(val) {
         if (val === null || val === undefined || val === '') return '—';
         const n = parseFloat(val);
         if (isNaN(n)) return String(val);
         return String(val);
       }
+      // Espera un tick del navegador (permite refrescar la UI durante la generacion del PDF)
       function waitPdfTick() {
         return new Promise(resolve => setTimeout(resolve, 0));
       }
+      // Actualiza la barra/mensaje de progreso mientras se generan varios PDFs
       function updatePdfProgress(done, total) {
         if (!btn) return;
         const mode = fastMode ? 'PDF rápido' : 'PDF';
         btn.textContent = '⏳ ' + mode + ' ' + done + '/' + total;
       }
+      // Detecta el tipo de imagen (PNG/JPEG) a partir de su data URL
       function imageType(dataUrl) {
         return String(dataUrl || '').indexOf('data:image/jpeg') === 0 ? 'JPEG' : 'PNG';
       }
+      // Comprime una imagen (dataURL) a un tamano y calidad maximos antes de insertarla en el PDF
       function compressPdfImage(dataUrl, maxW, maxH, quality) {
+        // Solo comprime en modo rapido y solo si es un PNG (las capturas de pantalla suelen ser PNG, mas pesadas)
         if (!fastMode || !dataUrl || String(dataUrl).indexOf('data:image/png') !== 0) {
           return Promise.resolve(dataUrl);
         }
@@ -2750,26 +2924,29 @@
           const img = new Image();
           img.onload = function() {
             try {
+              // Escala la imagen para que no supere el tamano maximo permitido, sin agrandarla (min con 1)
               const scale = Math.min(maxW / img.width, maxH / img.height, 1);
               const canvas = document.createElement('canvas');
               canvas.width = Math.max(1, Math.round(img.width * scale));
               canvas.height = Math.max(1, Math.round(img.height * scale));
               const ctx = canvas.getContext('2d');
-              ctx.fillStyle = '#0b0e1a';
+              ctx.fillStyle = '#0b0e1a'; // fondo oscuro solido (evita bordes transparentes raros al convertir a JPEG)
               ctx.fillRect(0, 0, canvas.width, canvas.height);
               ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-              resolve(canvas.toDataURL('image/jpeg', quality));
+              resolve(canvas.toDataURL('image/jpeg', quality)); // convierte a JPEG comprimido
             } catch(err) {
-              resolve(dataUrl);
+              resolve(dataUrl); // si algo falla, usa la imagen original sin comprimir
             }
           };
           img.onerror = function() { resolve(dataUrl); };
           img.src = dataUrl;
         });
       }
+      // Obtiene la imagen (escena o grafico) asociada a una entrada del historial, lista para el PDF
       async function getPdfImage(entry, key, maxW, maxH, quality) {
         const raw = entry[key];
         if (!raw) return null;
+        // Cachea la version comprimida dentro de la propia entrada para no recomprimir si se exporta varias veces
         const cacheKey = '_pdfFast_' + key;
         if (fastMode && entry[cacheKey]) return entry[cacheKey];
         const optimized = await compressPdfImage(raw, maxW, maxH, quality);
@@ -2778,15 +2955,16 @@
       }
 
       // Portada
+      // Dibuja el fondo oscuro de toda la pagina de portada
       rect(0, 0, PW, PH, C.bg, 0);
 
-      // Decoración top
+      // Decoración top: dos franjas de color en la parte superior de la pagina
       doc.setFillColor(...C.accent);
       doc.rect(0, 0, PW, 1.5, 'F');
       doc.setFillColor(255,107,107);
       doc.rect(0, 1.5, PW, 0.7, 'F');
 
-      // Título
+      // Título principal de la portada
       y = 38;
       setFont(28, 'bold', C.accent);
       doc.text('F = m · a', PW/2, y, { align:'center' });
@@ -2797,13 +2975,13 @@
       setFont(9, 'normal', C.muted);
       doc.text('Segunda Ley  ·  Tercera Ley  ·  Física Clásica', PW/2, y, { align:'center' });
 
-      // Línea decorativa
+      // Línea decorativa debajo del titulo
       y += 10;
       doc.setDrawColor(...C.accent);
       doc.setLineWidth(0.4);
       doc.line(ML + 20, y, PW - MR - 20, y);
 
-      // Resumen
+      // Resumen: cuenta cuantas simulaciones de cada ley se van a incluir en el reporte
       y += 12;
       const total2 = exportEntries.filter(e=>e.law==='2da').length;
       const total3 = exportEntries.filter(e=>e.law==='3ra').length;
@@ -3152,6 +3330,7 @@
   }
 
   //  EXPORTAR PDF INDIVIDUAL
+  // Exporta a PDF una unica entrada del historial (reporte individual y detallado)
   async function exportSinglePDF(entryId) {
     const e = historyLog.find(x => x.id === entryId);
     if (!e) return;
@@ -3174,12 +3353,15 @@
       };
       const W = PW - ML - MR;
 
+      // Aplica tamano, estilo y color de fuente al documento PDF antes de escribir texto
       function setFont(size, style='normal', color=C.text) {
         doc.setFontSize(size); doc.setFont('helvetica', style); doc.setTextColor(...color);
       }
+      // Dibuja un rectangulo (caja) con esquinas redondeadas en el documento PDF
       function rect(x, iy, w, h, color, radius=2) {
         doc.setFillColor(...color); doc.roundedRect(x, iy, w, h, radius, radius, 'F');
       }
+      // Verifica si queda espacio suficiente en la pagina actual; si no, agrega una nueva pagina
       function pageCheck(needed) {
         if (y + needed > PH - 14) {
           doc.addPage();
@@ -3189,6 +3371,7 @@
           y = 14;
         }
       }
+      // Formatea un valor numerico para su presentacion dentro del PDF
       function fmtPdf(val) {
         if (val === null || val === undefined || val === '') return '—';
         const n = parseFloat(val);

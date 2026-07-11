@@ -682,7 +682,7 @@
         <div class="input-block">
           <div class="input-header"><span class="var-label" style="color:var(--accent);">t — Duración</span><span class="var-name">Segundos</span></div>
           <div class="input-wrap" style="border-color:rgba(74,240,200,0.3);" id="wrap-t">
-            <input type="number" id="inp-t" placeholder="ej. 10" min="0" max="9999" step="1" oninput="checkDuracion()">
+            <input type="number" id="inp-t" placeholder="ej. 10" min="1" max="9999" step="1" oninput="checkDuracion()">
             <span class="input-unit">s</span>
           </div>
           <div id="dur-hint" style="margin-top:5px;font-family:var(--font-mono);font-size:10px;color:var(--text-dim);">Límite de simulación: 1 – 60 s</div>
@@ -728,23 +728,23 @@
         <div class="panel">
           <div class="panel-title">Objeto</div>
           <div class="obj-grid">
-            <div class="obj-card active" onclick="selectObj(this,'🏈','Pelota',0.4)"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🚗','Auto',1200)"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🚀','Cohete',500000)"><span class="obj-emoji">🚀</span><span class="obj-name">Cohete</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🧱','Bloque',2)"><span class="obj-emoji">🧱</span><span class="obj-name">Bloque</span></div>
-            <div class="obj-card" onclick="selectObj(this,'✈️','Avión',80000)"><span class="obj-emoji">✈️</span><span class="obj-name">Avión</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🛸','OVNI',1)"><span class="obj-emoji">🛸</span><span class="obj-name">OVNI</span></div>
+            <div class="obj-card active" onclick="selectObj(this,'🏈','Pelota')"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🚗','Auto')"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🚀','Cohete')"><span class="obj-emoji">🚀</span><span class="obj-name">Cohete</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🧱','Bloque')"><span class="obj-emoji">🧱</span><span class="obj-name">Bloque</span></div>
+            <div class="obj-card" onclick="selectObj(this,'✈️','Avión')"><span class="obj-emoji">✈️</span><span class="obj-name">Avión</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🛸','OVNI')"><span class="obj-emoji">🛸</span><span class="obj-name">OVNI</span></div>
           </div>
         </div>
         <div class="panel">
           <div class="panel-title">&nbsp;</div>
           <div class="obj-grid">
-            <div class="obj-card" onclick="selectObj(this,'🏎️','F1',798)"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🚂','Tren',90000)"><span class="obj-emoji flip">🚂</span><span class="obj-name">Tren</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🛶','Bote',50)"><span class="obj-emoji flip">🛶</span><span class="obj-name">Bote</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🚲','Bicicleta',10)"><span class="obj-emoji flip">🚲</span><span class="obj-name">Bicicleta</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🛵','Moto',100)"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
-            <div class="obj-card" onclick="selectObj(this,'🚁','Helicóptero',2500)"><span class="obj-emoji flip">🚁</span><span class="obj-name">Helicóptero</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🏎️','F1')"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🚂','Tren')"><span class="obj-emoji flip">🚂</span><span class="obj-name">Tren</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🛶','Bote')"><span class="obj-emoji flip">🛶</span><span class="obj-name">Bote</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🚲','Bicicleta')"><span class="obj-emoji flip">🚲</span><span class="obj-name">Bicicleta</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🛵','Moto')"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
+            <div class="obj-card" onclick="selectObj(this,'🚁','Helicóptero')"><span class="obj-emoji flip">🚁</span><span class="obj-name">Helicóptero</span></div>
           </div>
         </div>
       </div>
@@ -880,23 +880,23 @@
         <div class="panel">
           <div class="panel-title" style="color:var(--F-color);">Objeto A — Acción →</div>
           <div class="obj-grid" id="obj-grid-A">
-            <div class="obj-card active" onclick="selectObjA(this,'🏈',0.4)"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
-            <div class="obj-card" onclick="selectObjA(this,'🚗',1200)"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
-            <div class="obj-card" onclick="selectObjA(this,'🚛',20000)"><span class="obj-emoji flip">🚛</span><span class="obj-name">Tráiler</span></div>
-            <div class="obj-card" onclick="selectObjA(this,'🛵',100)"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
-            <div class="obj-card" onclick="selectObjA(this,'🏎️',798)"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
-            <div class="obj-card" onclick="selectObjA(this,'⚽',0.45)"><span class="obj-emoji">⚽</span><span class="obj-name">Balón</span></div>
+            <div class="obj-card active" onclick="selectObjA(this,'🏈')"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
+            <div class="obj-card" onclick="selectObjA(this,'🚗')"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
+            <div class="obj-card" onclick="selectObjA(this,'🚛')"><span class="obj-emoji flip">🚛</span><span class="obj-name">Tráiler</span></div>
+            <div class="obj-card" onclick="selectObjA(this,'🛵')"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
+            <div class="obj-card" onclick="selectObjA(this,'🏎️')"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
+            <div class="obj-card" onclick="selectObjA(this,'⚽')"><span class="obj-emoji">⚽</span><span class="obj-name">Balón</span></div>
           </div>
         </div>
         <div class="panel">
           <div class="panel-title" style="color:var(--accent);">← Objeto B — Reacción</div>
           <div class="obj-grid" id="obj-grid-B">
-            <div class="obj-card" onclick="selectObjB(this,'🏈',0.4)"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
-            <div class="obj-card active" onclick="selectObjB(this,'🚗',1200)"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
-            <div class="obj-card" onclick="selectObjB(this,'🚛',20000)"><span class="obj-emoji flip">🚛</span><span class="obj-name">Tráiler</span></div>
-            <div class="obj-card" onclick="selectObjB(this,'🛵',100)"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
-            <div class="obj-card" onclick="selectObjB(this,'🏎️',798)"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
-            <div class="obj-card" onclick="selectObjB(this,'⚽',0.45)"><span class="obj-emoji">⚽</span><span class="obj-name">Balón</span></div>
+            <div class="obj-card" onclick="selectObjB(this,'🏈')"><span class="obj-emoji">🏈</span><span class="obj-name">Pelota</span></div>
+            <div class="obj-card active" onclick="selectObjB(this,'🚗')"><span class="obj-emoji flip">🚗</span><span class="obj-name">Auto</span></div>
+            <div class="obj-card" onclick="selectObjB(this,'🚛')"><span class="obj-emoji flip">🚛</span><span class="obj-name">Tráiler</span></div>
+            <div class="obj-card" onclick="selectObjB(this,'🛵')"><span class="obj-emoji flip">🛵</span><span class="obj-name">Moto</span></div>
+            <div class="obj-card" onclick="selectObjB(this,'🏎️')"><span class="obj-emoji flip">🏎️</span><span class="obj-name">F1</span></div>
+            <div class="obj-card" onclick="selectObjB(this,'⚽')"><span class="obj-emoji">⚽</span><span class="obj-name">Balón</span></div>
           </div>
         </div>
       </div>
@@ -1178,9 +1178,9 @@
     else if (unknown === 'm' && av > 0 && Fv > 0) m = Fv / av;
 
     const Fd = F ?? 0, md = m ?? 0, ad = a ?? 0;
-    document.getElementById('met-F').textContent = (F === null && unknown !== 'F') ? '--' : fmt(Fd);
-    document.getElementById('met-m').textContent = (m === null && unknown !== 'm') ? '--' : fmt(md);
-    document.getElementById('met-a').textContent = (a === null && unknown !== 'a') ? '--' : fmt(ad);
+    document.getElementById('met-F').textContent = (F === null || isNaN(F)) ? '--' : fmt(Fd);
+    document.getElementById('met-m').textContent = (m === null || isNaN(m)) ? '--' : fmt(md);
+    document.getElementById('met-a').textContent = (a === null || isNaN(a)) ? '--' : fmt(ad);
 
     const bigA = document.getElementById('res-a-big');
     const bigM = document.getElementById('res-m-big');
@@ -1261,7 +1261,7 @@
 
   // SELECTOR OBJETO 2DA LEY
   const flipEmojis = ['🚗','🏎️','🚂','🛶','🚲','🛵','🚁','🚛'];
-  function selectObj(el, emoji, name, suggestedMass) {
+  function selectObj(el, emoji, name) {
     document.querySelectorAll('#section-2 .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     currentEmoji = emoji;
@@ -1554,7 +1554,7 @@
     });
   }
 
-  function selectObjA(el, emoji, suggestedMass) {
+  function selectObjA(el, emoji) {
     document.querySelectorAll('#obj-grid-A .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     emojiA = emoji;
@@ -1564,7 +1564,7 @@
     if (calc3Mode === 1) calcPar3(); else calcColision3();
   }
 
-  function selectObjB(el, emoji, suggestedMass) {
+  function selectObjB(el, emoji) {
     document.querySelectorAll('#obj-grid-B .obj-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     emojiB = emoji;
@@ -1822,6 +1822,9 @@
   }
 
   function calcPar3() {
+    applyRangeOnBlur('c3-F', 1, 99999);
+    applyRangeOnBlur('c3-mA', 0.1, 10000);
+    applyRangeOnBlur('c3-mB', 0.1, 10000);
     const F    = clampInput('c3-F',  1, 99999);
     const mA   = clampInput('c3-mA', 0.1, 10000);
     const mB   = clampInput('c3-mB', 0.1, 10000);
@@ -1863,17 +1866,41 @@
     if (!el || el.value.trim() === '') return null;
     let v = parseFloat(el.value);
     if (isNaN(v)) return null;
-    if (v < min) { v = min; el.value = min; }
-    if (v > max) { v = max; el.value = max; }
+    // Solo se usa el valor límite para el CÁLCULO; no se reescribe el campo aquí,
+    // porque hacerlo en cada tecla ("oninput") corrompe la escritura de decimales
+    // menores a 1 (p.ej. escribir "0.4" se convertía en "0.14").
+    // El valor visual se corrige al perder el foco (ver applyRangeOnBlur).
+    if (v < min) v = min;
+    if (v > max) v = max;
     return v;
   }
 
+  // Corrige visualmente el campo SOLO cuando el usuario termina de escribir (blur),
+  // para no interferir con la escritura de decimales.
+  function applyRangeOnBlur(id, min, max) {
+    const el = document.getElementById(id);
+    if (!el || el._rangeBlurBound) return;
+    el._rangeBlurBound = true;
+    el.addEventListener('blur', function() {
+      if (this.value.trim() === '') return;
+      let v = parseFloat(this.value);
+      if (isNaN(v)) return;
+      if (v < min) this.value = min;
+      else if (v > max) this.value = max;
+    });
+  }
+
   function calcColision3() {
+    applyRangeOnBlur('c3-col-mA', 0.1, 10000);
+    applyRangeOnBlur('c3-col-mB', 0.1, 10000);
+    applyRangeOnBlur('c3-col-vA', -999, 999);
+    applyRangeOnBlur('c3-col-vB', -999, 999);
     const mA = clampInput('c3-col-mA', 0.1, 10000);
     const mB = clampInput('c3-col-mB', 0.1, 10000);
     const vA = clampInput('c3-col-vA', -999, 999);
     const vB = clampInput('c3-col-vB', -999, 999);
-    const e  = parseFloat(document.getElementById('c3-col-e').value) || 1;
+    const eRaw = parseFloat(document.getElementById('c3-col-e').value);
+    const e  = isNaN(eRaw) ? 1 : eRaw;
     if (mA && mB && vA !== null && vB !== null) {
       const vA2 = ((mA - e*mB)*vA + (1+e)*mB*vB) / (mA + mB);
       const vB2 = ((mB - e*mA)*vB + (1+e)*mA*vA) / (mA + mB);
@@ -2025,7 +2052,8 @@
       if (isColMode) {
         rawVA = parseFloat(document.getElementById('c3-col-vA').value) || 0;
         rawVB = parseFloat(document.getElementById('c3-col-vB').value) || 0;
-        eCoef = parseFloat(document.getElementById('c3-col-e').value)  || 1;
+        const eCoefRaw = parseFloat(document.getElementById('c3-col-e').value);
+        eCoef = isNaN(eCoefRaw) ? 1 : eCoefRaw;
         vA2 = ((mA - eCoef * mB) * rawVA + (1 + eCoef) * mB * rawVB) / (mA + mB);
         vB2 = ((mB - eCoef * mA) * rawVB + (1 + eCoef) * mA * rawVA) / (mA + mB);
       }
